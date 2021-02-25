@@ -3,8 +3,8 @@ import seedColors from './helpers/seedColors'
 
 function App() {
   return (
-    <div>
-      <Palette palette={seedColors[4]}/>
+    <div className="App">
+      <Palette palette={seedColors[5]}/>
     </div>
   );
 }
