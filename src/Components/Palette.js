@@ -5,12 +5,12 @@ import Navbar from './Navbar'
 import '../styles/Palette.css'
 
 
-function Palette({ palette }) {
+function Palette({ palette, paletteName, emoji }) {
     const [level, setLevel] = useState(500)
     const [format, setFormat] = useState('hex')
 
     const colorBoxes = palette.colors[level].map(color => {
-        return <ColorBox background={color[format]} name={color.name} />
+        return <ColorBox key={color.id} background={color[format]} name={color.name} />
     })
 
     const changeLevel = (newLevel) => {
@@ -30,7 +30,10 @@ function Palette({ palette }) {
             <div className="Palette-colors">
                 {colorBoxes}
             </div>
-            {/* footer */}
+            <footer className="Palette-footer">
+                {palette.paletteName}
+                <span className="emoji">{palette.emoji}</span>
+            </footer>
         </div>
     )
 }
