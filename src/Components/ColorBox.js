@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from 'react'
-import {CopyToClipboard} from 'react-copy-to-clipboard'
-
+import React, { useState, useEffect } from 'react'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
+import { Link } from 'react-router-dom'
 import '../styles/ColorBox.css'
 
-function ColorBox({background, name}) {
+function ColorBox({ background, name }) {
     const [copied, setCopied] = useState(false);
 
     const changeCopyState = () => {
@@ -11,7 +11,7 @@ function ColorBox({background, name}) {
     }
 
     useEffect(() => {
-        if(copied) {
+        if (copied) {
             setTimeout(() => {
                 setCopied(false)
             }, 2000);
@@ -20,10 +20,10 @@ function ColorBox({background, name}) {
 
     return (
         <CopyToClipboard text={background} onCopy={changeCopyState}>
-            <div style={{background}} className="ColorBox">
-                <div 
-                    style={{background}} 
-                    className={copied ? 'copy-overlay show' : 'copy-overlay'}   
+            <div style={{ background }} className="ColorBox">
+                <div
+                    style={{ background }}
+                    className={copied ? 'copy-overlay show' : 'copy-overlay'}
                 >
                 </div>
                 <div className={copied ? 'copy-msg show' : 'copy-msg'}>
@@ -36,7 +36,9 @@ function ColorBox({background, name}) {
                     </div>
                     <div className="copy-button">Copy</div>
                 </div>
-                <span className="see-more">More</span>
+                <Link to='/' onClick={e => e.stopPropagation()}>
+                    <span className="see-more">More</span>
+                </Link>
             </div>
         </CopyToClipboard>
     )
