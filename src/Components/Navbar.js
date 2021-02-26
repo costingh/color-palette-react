@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Slider from 'rc-slider'
 import Select from '@material-ui/core/Select';
+import { Link } from 'react-router-dom'
 import { MenuItem } from '@material-ui/core'
 import Snackbar from '@material-ui/core/Snackbar';
 import CloseIcon from '@material-ui/icons/Close';
@@ -27,7 +28,7 @@ function Navbar({ level, changeLevel, handleChange }) {
     return (
         <header className="Navbar">
             <div className="logo">
-                <a href="#">reactcolorpicker</a>
+                <Link to='/'>reactcolorpicker</Link>
             </div>
             <div className="slider-container">
                 <span>Level: {level}</span>
