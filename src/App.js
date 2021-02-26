@@ -3,6 +3,7 @@ import Palette from './Components/Palette'
 import seedColors from './helpers/seedColors'
 import PaletteList from './Components/PaletteList'
 import { generatePalette } from './helpers/colorHelper'
+import SingleColorPalette from './Components/SingleColorPalette'
 
 function App() {
 
@@ -30,7 +31,7 @@ function App() {
       <Route
         exact
         path='/palette/:paletteId/:colorId'
-        render={() => <h1>SINGLE COLOR PAGE!</h1>}
+        render={() => <SingleColorPalette />}
       />
     </Switch>
   );
