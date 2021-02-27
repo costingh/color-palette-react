@@ -5,7 +5,7 @@ import Navbar from './Navbar'
 import '../styles/Palette.css'
 
 
-function Palette({ palette, paletteName, emoji, id }) {
+function Palette({ palette }) {
     const [level, setLevel] = useState(500)
     const [format, setFormat] = useState('hex')
 
@@ -14,7 +14,8 @@ function Palette({ palette, paletteName, emoji, id }) {
             key={color.id}
             background={color[format]}
             name={color.name}
-            moreUrl={`/palette/${id}/${color.id}`}
+            moreUrl={`/palette/${palette.id}/${color.id}`}
+            showLink
         />
     })
 

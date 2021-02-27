@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import MiniPalette from './MiniPalette'
 import { withStyles } from '@material-ui/styles'
 
@@ -37,6 +36,7 @@ function PaletteList(props) {
     const { palettes, classes } = props
 
     const goToPalette = (id) => {
+        console.log(id)
         props.history.push(`/palette/${id}`)
     }
 
