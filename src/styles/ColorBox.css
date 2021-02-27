@@ -1,4 +1,4 @@
-.ColorBox {
+/* .ColorBox {
     width: 20%;
     height: 25%;
     margin: 0 auto;
@@ -6,7 +6,7 @@
     cursor: pointer;
     position: relative;
     margin-bottom: -4.5px;
-}
+} */
 
 .SingleColorPalette .ColorBox {
     height: 50%;

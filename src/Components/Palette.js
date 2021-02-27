@@ -15,7 +15,7 @@ function Palette({ palette }) {
             background={color[format]}
             name={color.name}
             moreUrl={`/palette/${palette.id}/${color.id}`}
-            showLink
+            showingFullPalette
         />
     })
 
