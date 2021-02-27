@@ -32,6 +32,7 @@ function Palette({ palette }) {
                 level={level}
                 changeLevel={changeLevel}
                 handleChange={changeFormat}
+                showingAllColors
             />
             <div className="Palette-colors">
                 {colorBoxes}
