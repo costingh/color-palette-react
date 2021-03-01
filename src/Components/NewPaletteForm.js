@@ -76,15 +76,16 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function NewPaletteForm({savePalette, history}) {
+function NewPaletteForm({savePalette, history, palettes}) {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = useState(true);
     const [colorValue, setColorValue] = useState('#081212')
     const [hexColorValue, setHexColorValue] = useState('#081212')
     const [colors, setColors] = useState([{color: 'blue', name: 'blue'}])
-    const [newName, setNewName] = useState('')
- 
+    const [newColorName, setNewColorName] = useState('')
+    const [newPaletteName, setNewPaletteName] = useState('')
+
     useEffect(() => {
         ValidatorForm.addValidationRule('isColorNameUnique', (value) => {
             for(let i=0; i<colors.length; i++) {
@@ -98,6 +99,15 @@ function NewPaletteForm({savePalette, history}) {
         ValidatorForm.addValidationRule('isColorUnique', (value) => {
             for(let i=0; i<colors.length; i++) {
                 if(hexColorValue === colors[i].color) {
+                    return false;
+                }
+            }
+            return true;
+        });
+
+        ValidatorForm.addValidationRule('isPaletteNameUnique', (value) => {
+            for(let i=0; i<palettes.length; i++) {
+                if(value.toLowerCase() === palettes[i].paletteName.toLowerCase()) {
                     return false;
                 }
             }
@@ -121,18 +131,22 @@ function NewPaletteForm({savePalette, history}) {
     const addNewColor = () => {
         const newColor = {
             color: hexColorValue,
-            name: newName
+            name: newColorName
         }
         setColors([...colors, newColor])
-        setNewName('')
+        setNewColorName('')
     }
 
-    const handleChange = e => {
-        setNewName(e.target.value)
+    const handlePaletteNameChange = e => {
+        setNewPaletteName(e.target.value)
+    }
+
+    const handleColorNameChange = e => {
+        setNewColorName(e.target.value)
     }
 
     const handleSubmit = () => {
-        let newName = "New Test Palette"
+        let newName = newPaletteName
         const newPalette = {
             paletteName: newName,
             id: newName.toLowerCase().replace(/ /g, "-"),
@@ -165,7 +179,23 @@ function NewPaletteForm({savePalette, history}) {
                     <Typography variant="h6" noWrap>
                         Persistent drawer
                     </Typography>
-                    <Button variant="container" color="primary" onClick={handleSubmit}>Save Palette</Button>
+                    <ValidatorForm onSubmit={handleSubmit}>
+                    <TextValidator
+                        value={newPaletteName}
+                        name='newPaletteName'
+                        onChange={handlePaletteNameChange}
+                        label="Palette Name"
+                        validators={['required', 'isPaletteNameUnique']}
+                        errorMessages={['Enter palette name', 'Palette name already used']}
+                    />
+                        <Button 
+                            variant="container" 
+                            color="primary" 
+                            type='submit'
+                        >
+                            Save Palette
+                        </Button>
+                    </ValidatorForm>
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -197,8 +227,9 @@ function NewPaletteForm({savePalette, history}) {
                     onSubmit={addNewColor}
                 >
                     <TextValidator
-                        value={newName}
-                        onChange={handleChange}
+                        value={newColorName}
+                        name='newColorName'
+                        onChange={handleColorNameChange}
                         validators={['required', 'isColorNameUnique', 'isColorUnique']}
                         errorMessages={['Enter a color name', 'Color name must be unique', 'Color already used']}
                     />
