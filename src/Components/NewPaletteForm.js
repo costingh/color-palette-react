@@ -15,8 +15,22 @@ import { Button } from '@material-ui/core';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
 import DraggableColorList from './DraggableColorList'
 import {arrayMove} from 'react-sortable-hoc';
+import { createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
 
 const drawerWidth = 400;
+
+const darkTheme = createMuiTheme({
+    palette: {
+      primary: {
+        main: '#222',
+      },
+      secondary: {
+        main: '#333',
+      },
+    },
+  });
+  
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -45,11 +59,13 @@ const useStyles = makeStyles((theme) => ({
     drawer: {
         width: drawerWidth,
         flexShrink: 0,
+
     },
     drawerPaper: {
         width: drawerWidth,
     },
     drawerHeader: {
+        backgroundColor: '#222',
         display: 'flex',
         alignItems: 'center',
         padding: theme.spacing(0, 1),
@@ -58,9 +74,10 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'flex-end',
     },
     content: {
+        backgroundColor: '#222',
         flexGrow: 1,
         height: 'calc(100vh - 64px)',
-        padding: theme.spacing(3),
+        padding: 0,
         transition: theme.transitions.create('margin', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
@@ -82,9 +99,12 @@ function NewPaletteForm({savePalette, history, palettes}) {
     const [open, setOpen] = useState(true);
     const [colorValue, setColorValue] = useState('#081212')
     const [hexColorValue, setHexColorValue] = useState('#081212')
-    const [colors, setColors] = useState([{color: 'blue', name: 'blue'}])
+    const [colors, setColors] = useState(palettes[0].colors)
     const [newColorName, setNewColorName] = useState('')
     const [newPaletteName, setNewPaletteName] = useState('')
+
+    const MAX_NO_OF_COLORS = 20;
+    const paletteIsFull = colors.length >= MAX_NO_OF_COLORS;
 
     useEffect(() => {
         ValidatorForm.addValidationRule('isColorNameUnique', (value) => {
@@ -164,12 +184,24 @@ function NewPaletteForm({savePalette, history, palettes}) {
         setColors(arrayMove(colors, oldIndex, newIndex))
     }
 
+    const clearColors = () => {
+        setColors([])
+    }
+
+    const addRandomColor = () => {
+        const allColors = palettes.map(p => p.colors).flat();
+        let rand = Math.floor(Math.random() * allColors.length);
+        const randomColor = allColors[rand];
+        setColors([...colors, randomColor]);
+    }
+
     return (
         <div className={classes.root}>
+         <ThemeProvider theme={darkTheme}>
             <CssBaseline />
             <AppBar
                 position="fixed"
-                color="default"
+                color="primary"
                 className={clsx(classes.appBar, {
                     [classes.appBarShift]: open,
                 })}
@@ -197,7 +229,7 @@ function NewPaletteForm({savePalette, history, palettes}) {
                         errorMessages={['Enter palette name', 'Palette name already used']}
                     />
                         <Button 
-                            variant="container" 
+                            variant="contained" 
                             color="primary" 
                             type='submit'
                         >
@@ -208,6 +240,7 @@ function NewPaletteForm({savePalette, history, palettes}) {
             </AppBar>
             <Drawer
                 className={classes.drawer}
+                color="primary"
                 variant="persistent"
                 anchor="left"
                 open={open}
@@ -222,8 +255,21 @@ function NewPaletteForm({savePalette, history, palettes}) {
                 </div>
                 <Divider />
                 <Typography variant="h4">Design Your Palette</Typography>
-                <Button variant="contained" color='secondary'>Clear Palette</Button>
-                <Button variant="contained" color='primary'>Random Color</Button>
+                <Button 
+                    variant="contained" 
+                    color='secondary' 
+                    onClick={clearColors}
+                >
+                    Clear Palette
+                </Button>
+                <Button 
+                    variant="contained" 
+                    color='primary'
+                    onClick={addRandomColor}
+                    disabled={paletteIsFull}
+                >
+                    Random Color
+                </Button>
                 <ChromePicker
                     color={colorValue}
                     disableAlpha={false}
@@ -244,10 +290,11 @@ function NewPaletteForm({savePalette, history, palettes}) {
                     <Button
                         variant="contained"
                         color='primary'
-                        style={{ backgroundColor: hexColorValue }}
+                        style={{ backgroundColor: paletteIsFull ? "grey" : hexColorValue }}
                         type='submit'
+                        disabled={paletteIsFull}
                     >
-                        Add Color
+                        {paletteIsFull ? "Palette Full" : "Add Color"}
                     </Button>
                 </ValidatorForm>
                 
@@ -265,6 +312,7 @@ function NewPaletteForm({savePalette, history, palettes}) {
                     onSortEnd={onSortEnd}
                 />
             </main>
+            </ThemeProvider>
         </div>
     );
 }
