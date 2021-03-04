@@ -4,7 +4,7 @@ import DraggableColorBox from './DraggableColorBox'
 
 const DraggableColorList = SortableContainer(({colors, removeColor}) => {
     return (
-        <div style={{height: '100%'}}>
+        <div style={{height: '100%', backgroundColor: '#222'}}>
            {colors.map((color, i) => {
                     return <DraggableColorBox 
                         key={color.name}

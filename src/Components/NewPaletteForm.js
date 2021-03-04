@@ -14,18 +14,59 @@ import DraggableColorList from './DraggableColorList'
 import {arrayMove} from 'react-sortable-hoc';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
+import LayersClearIcon from '@material-ui/icons/LayersClear';
+import AllInclusiveIcon from '@material-ui/icons/AllInclusive';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import FingerprintIcon from '@material-ui/icons/Fingerprint';
 
 const drawerWidth = 400;
 
+const lightTheme = createMuiTheme({
+    palette: {
+        type: 'light',
+        primary: {
+            main: '#f9f3f3',
+        },
+        secondary: {
+            main: '#dddddd',
+        },
+        primaryButton: {
+            main: '#7b2e6a'
+        },
+        icons: {
+            main: '#111'
+        },
+        hover: {
+            main: '#ccc'
+        },
+        text: {
+            main: '#444'
+        }
+    }
+  });
+  
 const darkTheme = createMuiTheme({
     palette: {
-      primary: {
-        main: '#222',
-      },
-      secondary: {
-        main: '#333',
-      },
-    },
+        type: 'dark',
+        primary: {
+            main: '#222',
+        },
+        secondary: {
+            main: '#333',
+        },
+        primaryButton: {
+            main: '#211994'
+        },
+        icons: {
+            main: '#111'
+        },
+        hover: {
+            main: '#444'
+        },
+        text: {
+            main: 'rgb(150, 150, 150)'
+        }
+    }
   });
   
 
@@ -56,22 +97,22 @@ const useStyles = makeStyles((theme) => ({
     drawer: {
         width: drawerWidth,
         flexShrink: 0,
-
+        backgroundColor: props => props.palette.primary.main
     },
     drawerPaper: {
-        width: drawerWidth,
+        width: drawerWidth,    
+        backgroundColor: props => props.palette.primary.main,
     },
     drawerHeader: {
-        backgroundColor: '#222',
+        backgroundColor: props => props.palette.primary.main,
         display: 'flex',
         alignItems: 'center',
-        padding: theme.spacing(0, 1),
+        padding: theme.spacing(2, 1),
         // necessary for content to be below app bar
         ...theme.mixins.toolbar,
         justifyContent: 'flex-end',
     },
     content: {
-        backgroundColor: '#222',
         flexGrow: 1,
         height: 'calc(100vh - 64px)',
         padding: 0,
@@ -88,19 +129,134 @@ const useStyles = makeStyles((theme) => ({
         }),
         marginLeft: 0,
     },
+    header: {
+        color: props => props.palette.text.main,
+        textAlign: 'center',
+        fontSize: '16px',
+        textTransform: 'uppercase',
+        letterSpacing: '0.7px',
+        fontWeight: '800',
+        marginTop: '40px',
+        marginBottom: '30px'
+    },
+    buttonsContainer: {
+        width: '70%',
+        margin: '0 auto',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: '30px',
+        marginBottom: '50px'
+    },
+    button: {
+        width: '85px',
+        height: '85px',
+        margin: '0px 15px',
+        padding: '20px',
+        borderRadius: '10px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: props => props.palette.secondary.main,
+        color: props => props.palette.text.main,
+        transition: 'all 0.4s ease-in-out',
+        cursor: 'pointer',
+        appearance: 'none',
+        fontSize: '11px',
+        textTransform: 'uppercase',
+        letterSpacing: '0.6px',
+        fontWeight: '500',
+        border: 'none',
+        outline: 'none',
+        animation: 'none',
+        '&:hover': {
+            background: props => props.palette.hover.main,
+        }
+    },
+    icons: {
+        color: props => props.palette.text.main,
+        marginBottom: '10px'
+    },
+    addButton: {
+        backgroundColor: props => props.palette.secondary.main,
+        width: '70%',
+        padding: '15px 25px',
+        marginTop: '40px',
+        borderRadius: '30px',
+        color: props => props.palette.text.main,
+        margin: '0 auto',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        '&:hover': {
+            background: props => props.palette.hover.main,
+        }
+    },
+    btnCenter: {
+        color: props => props.palette.text.main,
+        fontSize: '12px',
+        textTransform: 'uppercase',
+        letterSpacing: '0.6px',
+        fontWeight: '500',
+        display: 'flex',
+        alignItems: 'center'
+    },
+    buttonCenterIcon: {
+        marginLeft: '15px',
+        color: props => props.palette.text.main
+    },
+    colorPicker: {
+        margin: '20px auto',
+        width: '330px !important',
+        borderRadius: '15px !important',
+        background: props => props.palette.primary.main + ' !important',
+        '& input': {
+            background: props => props.palette.secondary.main + ' !important',
+            height: '30px !important',
+            borderRadius: '8px !important',
+            border: 'none !important',
+            outline: 'none !important',
+            boxShadow: 'none !important',
+            color: props => props.palette.icons.main + ' !important',
+        }
+    },
+    colorValidator: {
+        width: '70%',
+        display: 'block',
+        margin: '0 auto !important',
+        background: props => props.palette.secondary.main,
+        borderRadius: '5px',
+        color: props => props.palette.text.main,
+        '& .MuiInputBase-root': {
+            width: '100% !important'
+        }
+    },
+    toggleDrawer: {
+        padding: theme,
+        color: props => props.palette.text.main
+    },
+    buttonPrimary: {
+        background: props => props.palette.primary.main
+    },
+    buttonSecondary: {
+        background:props => props.palette.secondary.main
+    }
 }));
 
+
 function NewPaletteForm({savePalette, history, palettes}) {
-    const classes = useStyles();
-    const theme = useTheme();
     const [open, setOpen] = useState(true);
-    const [colorValue, setColorValue] = useState('#081212')
-    const [hexColorValue, setHexColorValue] = useState('#081212')
+    const [colorValue, setColorValue] = useState('#48AEFF')
+    const [hexColorValue, setHexColorValue] = useState('#48AEFF')
     const [colors, setColors] = useState(palettes[0].colors)
     const [newColorName, setNewColorName] = useState('')
 
     const MAX_NO_OF_COLORS = 20;
     const paletteIsFull = colors.length >= MAX_NO_OF_COLORS;
+
+    const [theme, setTheme] = useState(darkTheme)
+    const classes = useStyles({...theme});
 
     useEffect(() => {
         ValidatorForm.addValidationRule('isColorNameUnique', (value) => {
@@ -121,6 +277,10 @@ function NewPaletteForm({savePalette, history, palettes}) {
             return true;
         });
     })
+
+    const toggleTheme = () => {
+        theme.palette.type === 'dark'? setTheme(lightTheme) : setTheme(darkTheme);
+    }
 
     const handleDrawerClose = () => {
         setOpen(false);
@@ -172,10 +332,10 @@ function NewPaletteForm({savePalette, history, palettes}) {
         const randomColor = allColors[rand];
         setColors([...colors, randomColor]);
     }
-
+    
     return (
         <div className={classes.root}>
-         <ThemeProvider theme={darkTheme}>
+         <ThemeProvider theme={{...theme}}>
             <PaletteFormNav 
                 classes={classes} 
                 open={open} 
@@ -185,7 +345,6 @@ function NewPaletteForm({savePalette, history, palettes}) {
             />
             <Drawer
                 className={classes.drawer}
-                color="primary"
                 variant="persistent"
                 anchor="left"
                 open={open}
@@ -195,54 +354,70 @@ function NewPaletteForm({savePalette, history, palettes}) {
             >
                 <div className={classes.drawerHeader}>
                     <IconButton onClick={handleDrawerClose}>
-                        <ChevronLeftIcon />
+                        <ChevronLeftIcon className={classes.toggleDrawer}/>
                     </IconButton>
                 </div>
                 <Divider />
-                <Typography variant="h4">Design Your Palette</Typography>
-                <Button 
-                    variant="contained" 
-                    color='secondary' 
-                    onClick={clearColors}
-                >
-                    Clear Palette
-                </Button>
-                <Button 
-                    variant="contained" 
-                    color='primary'
-                    onClick={addRandomColor}
-                    disabled={paletteIsFull}
-                >
-                    Random Color
-                </Button>
+                <Typography variant="p" className={classes.header}>Design Your Palette</Typography>
+                <div className={classes.buttonsContainer}>
+                    <Button 
+                        variant="contained" 
+                        color={classes.buttonSecondary}
+                        class={classes.button}
+                        onClick={clearColors}
+                    >
+                        <div className={classes.buttonInner}>
+                            <LayersClearIcon className={classes.icons} />
+                            <div className={classes.text}>Clear</div>
+                        </div>
+                    </Button>
+                    <Button 
+                        variant="contained" 
+                        color={classes.buttonPrimary}
+                        class={classes.button}
+                        onClick={addRandomColor} 
+                        disabled={paletteIsFull}
+                    >
+                        <div className={classes.buttonInner}>
+                            <AllInclusiveIcon className={classes.icons} />
+                            <div className={classes.text}>Random</div>
+                        </div>
+                    </Button>
+                </div>
                 <ChromePicker
                     color={colorValue}
                     disableAlpha={false}
                     onChange={handleColorChange}
-                    
+                    className={classes.colorPicker}
                 />
-                {/* onChangeComplete={() => console.log('mere')} */}
                 <ValidatorForm
                     onSubmit={addNewColor}
+                    placeholder="asdads"
                 >
                     <TextValidator
                         value={newColorName}
+                        className={classes.colorValidator}
                         name='newColorName'
                         onChange={handleColorNameChange}
                         validators={['required', 'isColorNameUnique', 'isColorUnique']}
                         errorMessages={['Enter a color name', 'Color name must be unique', 'Color already used']}
+                        style={{borderBottom: `2px solid ${hexColorValue}`}}
                     />
                     <Button
                         variant="contained"
-                        color='primary'
-                        style={{ backgroundColor: paletteIsFull ? "grey" : hexColorValue }}
+                        className={classes.addButton}
                         type='submit'
                         disabled={paletteIsFull}
                     >
-                        {paletteIsFull ? "Palette Full" : "Add Color"}
+                        <FingerprintIcon style={{color: paletteIsFull ? "grey" : hexColorValue}}/>
+                        <div className={classes.btnCenter}>
+                            {paletteIsFull ? "Palette Full" : "Add Color"}
+                            <ChevronRightIcon className={classes.buttonCenterIcon}/>
+                        </div>
+                        <div></div>
                     </Button>
                 </ValidatorForm>
-                
+                <button onClick={toggleTheme}>Change theme</button>
             </Drawer>
             <main
                 className={clsx(classes.content, {
