@@ -29,7 +29,7 @@ function App() {
 
   useEffect(() => {
     syncLocalStorage();
-  }, \)
+  }, [palettes])
 
   return (
     <Switch>
