@@ -213,15 +213,6 @@ function NewPaletteForm({savePalette, history, palettes}) {
         });
     })
 
-    /* const toggleTheme = () => {
-        theme.palette.type === 'dark'? setTheme(lightTheme) : setTheme(darkTheme);
-    } */
-
-    /* useEffect(() => {
-        const localTheme = window.localStorage.getItem('theme');
-        localTheme && setTheme(localTheme)
-    }, []); */
-
     const handleDrawerClose = () => {
         setOpen(false);
     };
@@ -244,12 +235,9 @@ function NewPaletteForm({savePalette, history, palettes}) {
         setNewColorName(e.target.value)
     }
 
-    const handleSubmit = (newPaletteName) => {
-        const newPalette = {
-            paletteName: newPaletteName,
-            id: newPaletteName.toLowerCase().replace(/ /g, "-"),
-            colors
-        }
+    const handleSubmit = (newPalette) => {
+        newPalette.id = newPalette.paletteName.toLowerCase().replace(/ /g, "-");
+        newPalette.colors = colors
         savePalette(newPalette)
         history.push('/')
     }
