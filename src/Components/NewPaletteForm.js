@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import clsx from 'clsx';
 import PaletteFormNav from './PaletteFormNav';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
@@ -12,87 +12,18 @@ import { Button } from '@material-ui/core';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
 import DraggableColorList from './DraggableColorList'
 import {arrayMove} from 'react-sortable-hoc';
-import { createMuiTheme } from '@material-ui/core/styles';
-import { ThemeProvider } from '@material-ui/styles';
 import LayersClearIcon from '@material-ui/icons/LayersClear';
 import AllInclusiveIcon from '@material-ui/icons/AllInclusive';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import FingerprintIcon from '@material-ui/icons/Fingerprint';
+import {ThemeContext} from '../Context/ThemeContext'
+import {lightTheme, darkTheme} from '../helpers/Themes'
 
 const drawerWidth = 400;
-
-const lightTheme = createMuiTheme({
-    palette: {
-        type: 'light',
-        primary: {
-            main: '#f9f3f3',
-        },
-        secondary: {
-            main: '#dddddd',
-        },
-        primaryButton: {
-            main: '#7b2e6a'
-        },
-        icons: {
-            main: '#111'
-        },
-        hover: {
-            main: '#ccc'
-        },
-        text: {
-            main: '#444'
-        }
-    }
-  });
-  
-const darkTheme = createMuiTheme({
-    palette: {
-        type: 'dark',
-        primary: {
-            main: '#222',
-        },
-        secondary: {
-            main: '#333',
-        },
-        primaryButton: {
-            main: '#211994'
-        },
-        icons: {
-            main: '#111'
-        },
-        hover: {
-            main: '#444'
-        },
-        text: {
-            main: 'rgb(150, 150, 150)'
-        }
-    }
-  });
-  
 
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
-    },
-    appBar: {
-        transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-    },
-    appBarShift: {
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: drawerWidth,
-        transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
-    },
-    hide: {
-        display: 'none',
     },
     drawer: {
         width: drawerWidth,
@@ -255,9 +186,13 @@ function NewPaletteForm({savePalette, history, palettes}) {
     const MAX_NO_OF_COLORS = 20;
     const paletteIsFull = colors.length >= MAX_NO_OF_COLORS;
 
-    const [theme, setTheme] = useState(darkTheme)
-    const classes = useStyles({...theme});
 
+    const [themeContext, setThemeContext] = React.useState('light');
+
+    const classes = useStyles(themeContext === 'light' ? lightTheme : darkTheme);
+
+    
+    
     useEffect(() => {
         ValidatorForm.addValidationRule('isColorNameUnique', (value) => {
             for(let i=0; i<colors.length; i++) {
@@ -278,9 +213,14 @@ function NewPaletteForm({savePalette, history, palettes}) {
         });
     })
 
-    const toggleTheme = () => {
+    /* const toggleTheme = () => {
         theme.palette.type === 'dark'? setTheme(lightTheme) : setTheme(darkTheme);
-    }
+    } */
+
+    /* useEffect(() => {
+        const localTheme = window.localStorage.getItem('theme');
+        localTheme && setTheme(localTheme)
+    }, []); */
 
     const handleDrawerClose = () => {
         setOpen(false);
@@ -334,106 +274,104 @@ function NewPaletteForm({savePalette, history, palettes}) {
     }
     
     return (
-        <div className={classes.root}>
-         <ThemeProvider theme={{...theme}}>
-            <PaletteFormNav 
-                classes={classes} 
-                open={open} 
-                palettes={palettes}
-                handleSubmit={handleSubmit}
-                setOpen={setOpen}
-            />
-            <Drawer
-                className={classes.drawer}
-                variant="persistent"
-                anchor="left"
-                open={open}
-                classes={{
-                    paper: classes.drawerPaper,
-                }}
-            >
-                <div className={classes.drawerHeader}>
-                    <IconButton onClick={handleDrawerClose}>
-                        <ChevronLeftIcon className={classes.toggleDrawer}/>
-                    </IconButton>
-                </div>
-                <Divider />
-                <Typography variant="p" className={classes.header}>Design Your Palette</Typography>
-                <div className={classes.buttonsContainer}>
-                    <Button 
-                        variant="contained" 
-                        color={classes.buttonSecondary}
-                        class={classes.button}
-                        onClick={clearColors}
-                    >
-                        <div className={classes.buttonInner}>
-                            <LayersClearIcon className={classes.icons} />
-                            <div className={classes.text}>Clear</div>
-                        </div>
-                    </Button>
-                    <Button 
-                        variant="contained" 
-                        color={classes.buttonPrimary}
-                        class={classes.button}
-                        onClick={addRandomColor} 
-                        disabled={paletteIsFull}
-                    >
-                        <div className={classes.buttonInner}>
-                            <AllInclusiveIcon className={classes.icons} />
-                            <div className={classes.text}>Random</div>
-                        </div>
-                    </Button>
-                </div>
-                <ChromePicker
-                    color={colorValue}
-                    disableAlpha={false}
-                    onChange={handleColorChange}
-                    className={classes.colorPicker}
-                />
-                <ValidatorForm
-                    onSubmit={addNewColor}
-                    placeholder="asdads"
-                >
-                    <TextValidator
-                        value={newColorName}
-                        className={classes.colorValidator}
-                        name='newColorName'
-                        onChange={handleColorNameChange}
-                        validators={['required', 'isColorNameUnique', 'isColorUnique']}
-                        errorMessages={['Enter a color name', 'Color name must be unique', 'Color already used']}
-                        style={{borderBottom: `2px solid ${hexColorValue}`}}
+        <ThemeContext.Provider value={[themeContext, setThemeContext]}>
+            <div className={classes.root}>
+                <PaletteFormNav 
+                        open={open} 
+                        palettes={palettes}
+                        handleSubmit={handleSubmit}
+                        setOpen={setOpen}
                     />
-                    <Button
-                        variant="contained"
-                        className={classes.addButton}
-                        type='submit'
-                        disabled={paletteIsFull}
+                <Drawer
+                    className={classes.drawer}
+                    variant="persistent"
+                    anchor="left"
+                    open={open}
+                    classes={{
+                        paper: classes.drawerPaper,
+                    }}
+                >
+                    <div className={classes.drawerHeader}>
+                        <IconButton onClick={handleDrawerClose}>
+                            <ChevronLeftIcon className={classes.toggleDrawer}/>
+                        </IconButton>
+                    </div>
+                    <Divider />
+                    <Typography variant="p" className={classes.header}>Design Your Palette</Typography>
+                    <div className={classes.buttonsContainer}>
+                        <Button 
+                            variant="contained" 
+                            color={classes.buttonSecondary}
+                            class={classes.button}
+                            onClick={clearColors}
+                        >
+                            <div className={classes.buttonInner}>
+                                <LayersClearIcon className={classes.icons} />
+                                <div className={classes.text}>Clear</div>
+                            </div>
+                        </Button>
+                        <Button 
+                            variant="contained" 
+                            color={classes.buttonPrimary}
+                            class={classes.button}
+                            onClick={addRandomColor} 
+                            disabled={paletteIsFull}
+                        >
+                            <div className={classes.buttonInner}>
+                                <AllInclusiveIcon className={classes.icons} />
+                                <div className={classes.text}>Random</div>
+                            </div>
+                        </Button>
+                    </div>
+                    <ChromePicker
+                        color={colorValue}
+                        disableAlpha={false}
+                        onChange={handleColorChange}
+                        className={classes.colorPicker}
+                    />
+                    <ValidatorForm
+                        onSubmit={addNewColor}
+                        placeholder="asdads"
                     >
-                        <FingerprintIcon style={{color: paletteIsFull ? "grey" : hexColorValue}}/>
-                        <div className={classes.btnCenter}>
-                            {paletteIsFull ? "Palette Full" : "Add Color"}
-                            <ChevronRightIcon className={classes.buttonCenterIcon}/>
-                        </div>
-                        <div></div>
-                    </Button>
-                </ValidatorForm>
-                <button onClick={toggleTheme}>Change theme</button>
-            </Drawer>
-            <main
-                className={clsx(classes.content, {
-                    [classes.contentShift]: open,
-                })}
-            >
-                <div className={classes.drawerHeader} />
-                <DraggableColorList 
-                    colors={colors} 
-                    removeColor={removeColor}
-                    axis='xy'
-                    onSortEnd={onSortEnd}
-                />
-            </main>
-            </ThemeProvider>
-        </div>
+                        <TextValidator
+                            value={newColorName}
+                            className={classes.colorValidator}
+                            name='newColorName'
+                            onChange={handleColorNameChange}
+                            validators={['required', 'isColorNameUnique', 'isColorUnique']}
+                            errorMessages={['Enter a color name', 'Color name must be unique', 'Color already used']}
+                            style={{borderBottom: `2px solid ${hexColorValue}`}}
+                        />
+                        <Button
+                            variant="contained"
+                            className={classes.addButton}
+                            type='submit'
+                            disabled={paletteIsFull}
+                        >
+                            <FingerprintIcon style={{color: paletteIsFull ? "grey" : hexColorValue}}/>
+                            <div className={classes.btnCenter}>
+                                {paletteIsFull ? "Palette Full" : "Add Color"}
+                                <ChevronRightIcon className={classes.buttonCenterIcon}/>
+                            </div>
+                            <div></div>
+                        </Button>
+                    </ValidatorForm>
+                </Drawer>
+                <main
+                    className={clsx(classes.content, {
+                        [classes.contentShift]: open,
+                    })}
+                >
+                    <div className={classes.drawerHeader} />
+                    <DraggableColorList 
+                        colors={colors} 
+                        removeColor={removeColor}
+                        axis='xy'
+                        onSortEnd={onSortEnd}
+                    />
+                </main>
+            </div>
+            </ThemeContext.Provider>
     );
 }
 
