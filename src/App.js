@@ -31,6 +31,10 @@ function App() {
     syncLocalStorage();
   }, [palettes])
 
+  const deletePalette = (id) => {
+    setPalettes(palettes.filter(palette => palette.id !== id))
+  }
+
   return (
     <Switch>
       <Route
@@ -58,7 +62,7 @@ function App() {
       <Route
         exact
         path='/'
-        render={(routeProps) => <PaletteList palettes={palettes} {...routeProps} />}
+        render={(routeProps) => <PaletteList palettes={palettes} {...routeProps} deletePalette={deletePalette}/>}
       />
       <Route
         exact

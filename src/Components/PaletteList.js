@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/styles'
 import styles from '../styles/PaletteListStyles'
 
 function PaletteList(props) {
-    const { palettes, classes } = props
+    const { palettes, classes, deletePalette } = props
 
     const goToPalette = (id) => {
         props.history.push(`/palette/${id}`)
@@ -20,7 +20,13 @@ function PaletteList(props) {
                 </nav>
                 <div className={classes.palettes}>
                     {palettes.map(palette => {
-                        return <MiniPalette {...palette} handleClick={() => goToPalette(palette.id)} />
+                        return <MiniPalette 
+                            {...palette} 
+                            handleClick={() => goToPalette(palette.id)} 
+                            handleDelete={deletePalette}
+                            key={palette.id}
+                            id={palette.id}
+                        />
                     })}
                 </div>
             </div>
