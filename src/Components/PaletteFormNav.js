@@ -40,29 +40,45 @@ const useStyles = makeStyles((theme) => ({
     },
     buttonPrimary: {
         background: props => props.palette.primary.main,
-        color: props => props.palette.text.main
+        color: props => props.palette.text.main,
+        margin: '0 15px',
+        height: '40px'
     },
     buttonSecondary: {
         background:props => props.palette.secondary.main,
-        color: props => props.palette.text.main
+        color: props => props.palette.text.main,
+        margin: '0 15px',
+        height: '40px'
     }, 
     'text': {
         color: props => props.palette.text.main
+    },
+    'navBtns': {
+        marginLeft: 'auto !important',
+        display: 'flex',
+        marginRight: '15px'
+    },
+    link: {
+        textDecoration: 'none !important' 
     }
 }));
 
 function PaletteFormNav(props) {
     const {open, palettes, setOpen, handleSubmit} = props;
+    const [formShowing, setFormShowing] = React.useState(false)
     const [themeContext, setThemeContext] = React.useContext(ThemeContext);
     const classes = useStyles(themeContext === 'light' ? {...lightTheme} : {...darkTheme});
 
     const handleDrawerOpen = () => {
         setOpen(true);
     };   
+
+    const showForm = () => {
+        setFormShowing(true)
+    }
   
     return (
         <div>
-            <CssBaseline />
             <AppBar
                 position="fixed"
                 className={clsx(classes.appBar, {
@@ -82,21 +98,16 @@ function PaletteFormNav(props) {
                     <Typography variant="h6" noWrap className={classes.text}>
                         Persistent drawer
                     </Typography>
-                    <Link to='/'>
-                            <Button
-                                variant='contained'
-                                className={classes.buttonSecondary}
-                            >
-                                Go Back
-                            </Button>
+                    <CssBaseline />
+                    <div className={classes.navBtns}>
+                        <Link to='/' className={classes.link }>
+                            <Button variant='contained' className={classes.buttonSecondary}>Go Back</Button>  
                         </Link>
-                    <PaletteMetaForm
-                        palettes={palettes}
-                        handleSubmit={handleSubmit}
-                        classes={classes}
-                    />
+                        <Button variant='contained' className={classes.buttonPrimary} onClick={showForm}>Save</Button>
+                        {formShowing && <PaletteMetaForm palettes={palettes} handleSubmit={handleSubmit} classes={classes} />}                      
+                        <ThemeToggler/>
+                    </div>
                 </Toolbar>
-                <ThemeToggler/>
             </AppBar>
         </div>
     )

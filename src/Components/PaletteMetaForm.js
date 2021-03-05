@@ -8,7 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
 
 function PaletteMetaForm({palettes, classes, handleSubmit}) {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(true);
     const [newPaletteName, setNewPaletteName] = useState('')
 
     useEffect(() => {
@@ -36,47 +36,44 @@ function PaletteMetaForm({palettes, classes, handleSubmit}) {
 
     return (
         <div>
-          <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-            Open alert dialog
-          </Button>
           <Dialog
             open={open}
             onClose={handleClose}
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
           >
-            <DialogTitle id="alert-dialog-title">{"Use Google's location service?"}</DialogTitle>
+            <DialogTitle id="alert-dialog-title">{"Choose a palette name"}</DialogTitle>
+            <ValidatorForm onSubmit={() => handleSubmit(newPaletteName)}>
             <DialogContent>
               <DialogContentText id="alert-dialog-description">
-                Let Google help apps determine location. This means sending anonymous location data to
-                Google, even when no apps are running.
-              </DialogContentText>
-              <ValidatorForm onSubmit={() => handleSubmit(newPaletteName)}>
+                Please enter a name for your new palette. Make sure it's unique!
+                </DialogContentText>
+                
                     <TextValidator
                         value={newPaletteName}
                         name='newPaletteName'
                         onChange={handlePaletteNameChange}
+                        fullWidth
+                        margin='normal'
                         label="Palette Name"
                         validators={['required', 'isPaletteNameUnique']}
                         errorMessages={['Enter palette name', 'Palette name already used']}
                     />
-                        <Button 
-                            variant="contained" 
-                            className={classes.buttonPrimary}
-                            type='submit'
-                        >
-                            Save Palette
-                        </Button>
-                    </ValidatorForm>
+                
             </DialogContent>
             <DialogActions>
               <Button onClick={handleClose} color="primary">
                 Disagree
               </Button>
-              <Button onClick={handleClose} color="primary" autoFocus>
-                Agree
-              </Button>
+              <Button 
+                    variant="contained" 
+                    className={classes.buttonPrimary}
+                    type='submit'
+                >
+                    Save Palette
+                </Button>
             </DialogActions>
+            </ValidatorForm>
           </Dialog>
         </div>
       );
