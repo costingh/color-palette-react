@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useContext} from 'react'
 import clsx from 'clsx';
 import {Link } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,63 +10,14 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { Button } from '@material-ui/core';
 import ThemeToggler from './ThemeToggler'
 import {ThemeContext} from '../Context/ThemeContext'
-import { makeStyles } from '@material-ui/core/styles';
 import {lightTheme, darkTheme} from '../helpers/Themes'
 import PaletteMetaForm from './PaletteMetaForm'
-
-const drawerWidth = 400;
-
-const useStyles = makeStyles((theme) => ({
-    appBar: {
-        background: props => props.palette.primary.main,
-        transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-    },
-    appBarShift: {
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: drawerWidth,
-        transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
-    },
-    hide: {
-        display: 'none',
-    },
-    buttonPrimary: {
-        background: props => props.palette.primary.main,
-        color: props => props.palette.text.main,
-        margin: '0 15px',
-        height: '40px'
-    },
-    buttonSecondary: {
-        background:props => props.palette.secondary.main,
-        color: props => props.palette.text.main,
-        margin: '0 15px',
-        height: '40px'
-    }, 
-    'text': {
-        color: props => props.palette.text.main
-    },
-    'navBtns': {
-        marginLeft: 'auto !important',
-        display: 'flex',
-        marginRight: '15px'
-    },
-    link: {
-        textDecoration: 'none !important' 
-    }
-}));
+import useStyles from '../styles/PaletteFormNavStyles'
 
 function PaletteFormNav(props) {
     const {open, palettes, setOpen, handleSubmit} = props;
-    const [formShowing, setFormShowing] = React.useState(false)
-    const [themeContext, setThemeContext] = React.useContext(ThemeContext);
+    const [formShowing, setFormShowing] = useState(false)
+    const [themeContext, setThemeContext] = useContext(ThemeContext);
     const classes = useStyles(themeContext === 'light' ? {...lightTheme} : {...darkTheme});
 
     const handleDrawerOpen = () => {

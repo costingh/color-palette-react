@@ -8,7 +8,6 @@ function PaletteList(props) {
     const { palettes, classes } = props
 
     const goToPalette = (id) => {
-        console.log(id)
         props.history.push(`/palette/${id}`)
     }
 
