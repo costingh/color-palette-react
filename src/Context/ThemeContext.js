@@ -1,4 +1,3 @@
-import React, {useState} from 'react';
-import { lightTheme, darkTheme } from "../helpers/Themes"
+import React from 'react';
 
 export const ThemeContext = React.createContext();

@@ -1,10 +1,9 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useContext} from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import {ThemeContext} from '../Context/ThemeContext'
-import { lightTheme } from '../helpers/Themes'
 
 const IOSSwitch = withStyles((theme) => ({
   root: {
@@ -19,14 +18,14 @@ const IOSSwitch = withStyles((theme) => ({
       transform: 'translateX(16px)',
       color: theme.palette.common.white,
       '& + $track': {
-        backgroundColor: 'gray',
+        backgroundColor: '#48AEFF',
         opacity: 1,
         border: 'none',
       },
     },
     '&$focusVisible $thumb': {
       color: '#48AEFF',
-      border: '6px solid #fff',
+      border: '6px solid gray',
     },
   },
   thumb: {

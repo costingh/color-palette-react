@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import clsx from 'clsx';
 import {Link } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -8,11 +8,11 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { Button } from '@material-ui/core';
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
 import ThemeToggler from './ThemeToggler'
 import {ThemeContext} from '../Context/ThemeContext'
 import { makeStyles } from '@material-ui/core/styles';
 import {lightTheme, darkTheme} from '../helpers/Themes'
+import PaletteMetaForm from './PaletteMetaForm'
 
 const drawerWidth = 400;
 
@@ -53,27 +53,8 @@ const useStyles = makeStyles((theme) => ({
 
 function PaletteFormNav(props) {
     const {open, palettes, setOpen, handleSubmit} = props;
-    const [newPaletteName, setNewPaletteName] = useState('')
-
     const [themeContext, setThemeContext] = React.useContext(ThemeContext);
-
-    const [theme, setTheme] = useState(darkTheme)
-    const classes = useStyles(themeContext === 'light' ? lightTheme : darkTheme);
-
-    useEffect(() => {
-        ValidatorForm.addValidationRule('isPaletteNameUnique', (value) => {
-            for(let i=0; i<palettes.length; i++) {
-                if(value.toLowerCase() === palettes[i].paletteName.toLowerCase()) {
-                    return false;
-                }
-            }
-            return true;
-        });
-    })
-
-    const handlePaletteNameChange = e => {
-        setNewPaletteName(e.target.value)
-    }
+    const classes = useStyles(themeContext === 'light' ? {...lightTheme} : {...darkTheme});
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -101,23 +82,7 @@ function PaletteFormNav(props) {
                     <Typography variant="h6" noWrap className={classes.text}>
                         Persistent drawer
                     </Typography>
-                    <ValidatorForm onSubmit={() => handleSubmit(newPaletteName)}>
-                    <TextValidator
-                        value={newPaletteName}
-                        name='newPaletteName'
-                        onChange={handlePaletteNameChange}
-                        label="Palette Name"
-                        validators={['required', 'isPaletteNameUnique']}
-                        errorMessages={['Enter palette name', 'Palette name already used']}
-                    />
-                        <Button 
-                            variant="contained" 
-                            className={classes.buttonPrimary}
-                            type='submit'
-                        >
-                            Save Palette
-                        </Button>
-                        <Link to='/'>
+                    <Link to='/'>
                             <Button
                                 variant='contained'
                                 className={classes.buttonSecondary}
@@ -125,7 +90,11 @@ function PaletteFormNav(props) {
                                 Go Back
                             </Button>
                         </Link>
-                    </ValidatorForm>
+                    <PaletteMetaForm
+                        palettes={palettes}
+                        handleSubmit={handleSubmit}
+                        classes={classes}
+                    />
                 </Toolbar>
                 <ThemeToggler/>
             </AppBar>

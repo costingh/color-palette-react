@@ -189,7 +189,7 @@ function NewPaletteForm({savePalette, history, palettes}) {
 
     const [themeContext, setThemeContext] = React.useState('light');
 
-    const classes = useStyles(themeContext === 'light' ? lightTheme : darkTheme);
+    const classes = useStyles(themeContext === 'light' ? {...lightTheme} : {...darkTheme});
 
     
     
@@ -281,7 +281,7 @@ function NewPaletteForm({savePalette, history, palettes}) {
                         palettes={palettes}
                         handleSubmit={handleSubmit}
                         setOpen={setOpen}
-                    />
+                />
                 <Drawer
                     className={classes.drawer}
                     variant="persistent"
