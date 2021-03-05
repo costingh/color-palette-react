@@ -76,7 +76,11 @@ function PaletteFormNav(props) {
     const showForm = () => {
         setFormShowing(true)
     }
-  
+    
+    const hideForm = () => {
+        setFormShowing(false)
+    }
+
     return (
         <div>
             <AppBar
@@ -104,7 +108,7 @@ function PaletteFormNav(props) {
                             <Button variant='contained' className={classes.buttonSecondary}>Go Back</Button>  
                         </Link>
                         <Button variant='contained' className={classes.buttonPrimary} onClick={showForm}>Save</Button>
-                        {formShowing && <PaletteMetaForm palettes={palettes} handleSubmit={handleSubmit} classes={classes} />}                      
+                        {formShowing && <PaletteMetaForm palettes={palettes} handleSubmit={handleSubmit} hideForm={hideForm} classes={classes} />}                      
                         <ThemeToggler/>
                     </div>
                 </Toolbar>
