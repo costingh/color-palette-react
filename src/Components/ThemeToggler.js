@@ -69,7 +69,7 @@ function ThemeToggler(props) {
         <FormGroup>
             <FormControlLabel
             control={<IOSSwitch value={themeContext}  name="checkedA"  onChange={handleChange} />}
-            label="Change theme"
+            label="&#127767;"
             />
             
           </FormGroup>
