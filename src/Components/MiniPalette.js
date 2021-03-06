@@ -29,13 +29,15 @@ const MiniPalette = (props) => {
             <div className={classes.colors}>
                 {miniColorBoxes}
             </div>
-            <h5 className={classes.title}>
-                {paletteName}
+            <div className={classes.paletteDetails}>
+                <p className={classes.title} style={{color: '#646369'}}>
+                    {paletteName}
+                </p>
                 <span
                     className={classes.emoji}>
                     {emoji}
                 </span>
-            </h5>
+            </div>
         </div>
     )
 }

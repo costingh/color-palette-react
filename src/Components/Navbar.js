@@ -6,54 +6,143 @@ import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close';
 import Snackbar from '@material-ui/core/Snackbar';
 import Select from '@material-ui/core/Select';
-import Slider from 'rc-slider'
+import Slider from 'rc-slider';
+import logo from '../images/logo.png';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Popover from '@material-ui/core/Popover';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import styles from '../styles/NavbarStyles';
+import 'rc-slider/assets/index.css';
 
-import styles from '../styles/NavbarStyles'
-import 'rc-slider/assets/index.css'
-
-function Navbar({ level, changeLevel, handleChange, showingAllColors, classes }) {
+function Navbar(props) {
+    const { level, changeLevel, handleChange, showingAllColors, classes, palette, setLayout } = props;
     const [format, setFormat] = useState('hex')
-    const [open, setOpen] = useState(false)
 
-    const handleFormatChange = e => {
-        setFormat(e.target.value)
-        setOpen(true)
-        handleChange(e.target.value)
+    /* Popover for format change (Hex, RGB, RGBA) */
+    const [formatOpen, setFormatOpen] = useState(false)
+    const [formatAnchor, setformatAnchor] = useState(null);
+    const formatPopover = Boolean(formatAnchor);
+    const formatId = formatPopover ? 'simple-popover' : undefined;
+
+    const handleFormatValueChange = val => {
+        setFormat(val)
+        setFormatOpen(true)
+        handleFormatChange(val)
+        handleFormatChangeClose()
     }
 
     const closeSnackbar = () => {
-        setOpen(false)
+        setFormatOpen(false)
     }
+
+    const handleFormatChange = (event) => {
+        setformatAnchor(event.currentTarget);
+    };
+
+    const handleFormatChangeClose = () => {
+        setformatAnchor(null);
+    };
+
+    /* Popover for layout change panel */
+    const [layoutAnchor, setlayoutAnchor] = useState(null);
+    const layoutPopover = Boolean(layoutAnchor);
+    const layoutId = layoutPopover ? 'simple-popover' : undefined;
+
+    const handleLayoutChange = (event) => {
+        setlayoutAnchor(event.currentTarget);
+    };
+
+    const handleLayoutChangeClose = () => {
+        setlayoutAnchor(null);
+    };
 
     return (
         <header className={classes.Navbar}>
-            <div className={classes.logo}>
-                <Link to='/'>reactcolorpicker</Link>
-            </div>
-            {showingAllColors && (
-                <div>
-                    <span>Level: {level}</span>
-                    <div className={classes.slider}>
-                        <Slider
-                            defaultValue={level}
-                            min={100}
-                            max={900}
-                            step={100}
-                            onAfterChange={changeLevel}
-                        />
+            <Link to='/' className={classes.logo}>
+                <img src={logo} alt="HEXA"/>
+            </Link>
+            <div className={classes.right}>
+                <Link to='/palette/new' className={classes.link}>Create</Link>
+                {/* Popover for Format change starts */}
+                <p className={classes.link} onClick={handleFormatChange} >Format<ExpandMoreIcon style={{marginLeft: '6px'}}/></p>
+                <Popover
+                    id={formatId}
+                    open={formatPopover}
+                    className={classes.dropdown}
+                    anchorEl={formatAnchor}
+                    onClose={handleFormatChangeClose}
+                    anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                    }}
+                    transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                    }}
+                >
+                    <p onClick={() => handleFormatValueChange('hex')}>HEX (Default)</p>
+                    <p onClick={() => handleFormatValueChange('rgb')}>RGB </p>
+                    <p onClick={() => handleFormatValueChange('rgba')}>RGBA </p>
+                </Popover>
+                {/* Popover for Format change ends */}
+                
+                <div className={classes.dividerVert}></div>
+                <Link to='/' className={classes.link}>Eplore</Link>
+                    
+                {/* Popover for Layout change starts */}
+                <Link className={classes.btn} onClick={handleLayoutChange}>Change View</Link>
+                <Popover
+                    id={layoutId}
+                    open={layoutPopover}
+                    className={classes.dropdown}
+                    anchorEl={layoutAnchor}
+                    onClose={handleLayoutChangeClose}
+                    anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                    }}
+                    transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                    }}
+                >
+                    <div className={classes.text}>Choose how you want the color palettes to be displayed</div>
+                    <div className={classes.divider}></div>
+                    <div className={classes.layoutOptions}>
+                        <div className={classes.view} onClick={() => setLayout('simple')}>
+                            <div className={classes.layout} style={{width: '40px'}}>
+                                <div className={classes.horizontalDivider}></div>
+                            </div>
+                            <span>Simple</span>
+                        </div>
+                        <div className={classes.view} onClick={() => setLayout('gradient')}>
+                            <div className={classes.layout} style={{width: '40px'}}>
+                                <div className={classes.horizontalDivider}></div>
+                                <div className={classes.gradient}></div> 
+                            </div>
+                            <span>Gradient</span>
+                        </div>
+                        <div className={classes.view} onClick={() => setLayout('shades')}>
+                            <div className={classes.layout} style={{width: '40px'}}>
+                                <div className={classes.horizontalDivider}></div>
+                                <div className={classes.shades}>
+                                    <div className={classes.verticalDivider}></div>
+                                    <div className={classes.verticalDivider}></div>
+                                    <div className={classes.verticalDivider}></div>
+                                    <div className={classes.verticalDivider}></div>
+                                </div>
+                            </div>
+                            <span>Shades</span>
+                        </div>
                     </div>
-                </div>
-            )}
-            <div className={classes.selectContainer}>
-                <Select value={format} onChange={handleFormatChange}>
-                    <MenuItem value="hex">HEX - #ffffff</MenuItem>
-                    <MenuItem value="rgb">RGB - rgb(255,255,255)</MenuItem>
-                    <MenuItem value="rgba">RGBA - rgb(255,255,255,1.0)</MenuItem>
-                </Select>
+    
+                </Popover>
+                {/* Popover for Layout change ends */}
             </div>
             <Snackbar
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-                open={open}
+                open={formatOpen}
                 autoHideDuration={3000}
                 message={<span id="message-id">Format Changed to {format.toUpperCase()}!</span>}
                 ContentProps={{
@@ -75,3 +164,9 @@ function Navbar({ level, changeLevel, handleChange, showingAllColors, classes })
 }
 
 export default withStyles(styles)(Navbar)
+
+
+
+
+
+            

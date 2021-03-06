@@ -1,8 +1,8 @@
 const styles = {
     root: {
         backgroundColor: 'white',
-        borderRadius: '5px',
-        padding: '0.5rem',
+        borderRadius: '15px',
+        padding: '0',
         position: 'relative',
         overflow: 'hidden',
         cursor: 'pointer',
@@ -12,16 +12,27 @@ const styles = {
     },
     colors: {
         backgroundColor: '#dae1e4',
-        height: '150px',
+        height: '130px',
         width: '100%',
-        borderRadius: '5px',
         'overflow': 'hidden'
     },
-    title: {
+    paletteDetails: {
+        width: '100%',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
         margin: '0',
+        padding: '6px 12px',
+        paddingBottom: '10px',
+        borderBottomLeftRadius: '15px',
+        borderBottomRightRadius: '15px',
+        border: '1px solid #cdd',
+        borderTop: 'none'
+    }, 
+    title: {
+        fontSize: '15px',
+        fontWeight: '400',
+        letterSpacing: '.4px',
         color: 'black',
         paddingTop: '0.5rem',
         fontSize: '1rem',
@@ -32,8 +43,8 @@ const styles = {
         fontSize: '1.5rem'
     },
     miniColor: {
-        height: '25%',
-        width: '20%',
+        height: '100%',
+        width: '16.6%',
         display: 'inline-block',
         margin: '0 auto',
         position: 'relative',

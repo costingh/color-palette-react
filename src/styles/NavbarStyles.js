@@ -3,20 +3,57 @@ export default {
         display: "flex",
         alignItems: "center",
         justifyContent: "flex-start",
-        height: "6vh"
+        height: "70px"
     },
     logo: {
-        marginRight: "15px",
-        padding: "0 13px",
-        fontSize: "22px",
-        backgroundColor: "#eceff1",
-        fontFamily: "Roboto",
-        height: "100%",
-        display: "flex",
-        alignItems: "center",
-        "& a": {
-            textDecoration: "none",
-            color: "black"
+        marginLeft: '12px',
+        textDecoration: "none",
+        height: '70px',
+        '& img': {
+            height: '50px',
+            marginTop: '10px'
+        }
+    },
+    'right': {
+        marginLeft: 'auto',
+        display: 'flex',
+        alignItems: 'center'
+    },
+    'link': {
+        display: 'flex',
+        alignItems: 'center',
+        marginRight: '15px',
+        color: '#646369',
+        textDecoration: 'none',
+        fontSize: '15px',
+        fontWeight: '400',
+        letterSpacing: '.5px',
+        cursor: 'pointer',
+        transition: 'all .4s ease-in-out',
+        '&:hover': {
+            color: '#000'
+        }
+    },
+    'dividerVert': {
+        height: '35px',
+        width: '1px',
+        backgroundColor: 'rgba(100, 99, 105, 0.2)',
+        marginRight: '15px'
+    },
+    'btn': {
+        marginRight: '12px',
+        padding: '7px 18px',
+        backgroundColor: '#4896FF',
+        color: '#fff',
+        border: '1px solid #4896FF',
+        transition: 'background .4s ease-in-out',
+        borderRadius: '10px',
+        letterSpacing: '.5px',
+        fontSize: '14px',
+        textDecoration: 'none',
+        '&:hover': {
+            backgroundColor: 'transparent',
+            color: '#4896FF'
         }
     },
     slider: {
@@ -40,8 +77,121 @@ export default {
             marginTop: "-3px"
         }
     },
-    selectContainer: {
-        marginLeft: "auto",
-        marginRight: "1rem"
+    'dropdown': {
+        zIndex: '888', 
+        '& p': {
+            padding: '5px 20px',
+            borderRadius: '8px',
+            color: '#646369',
+            cursor: 'pointer',
+            transition: 'all .2s ease-in-out',
+            '&:hover': {
+                background: '#eee'
+            }
+        },
+        '& .MuiPopover-paper': {
+            borderRadius: '5px',
+            padding: '10px 20px',
+            boxShadow: 'rgb(0 0 0 / 11%) 0 0 0 1px, rgb(0 0 0 / 5%) 0 10px 10px -5px',
+            minWdth: '140px',
+            top: '70px !important',
+        },
+    },
+    'text': {
+        textAlign: 'center',
+        marginTop: '14px',
+        marginBottom: '10px',
+        color: '#646369',
+        fontSize: '15px',
+        fontWeight: '400',
+        letterSpacing: '.5px',
+    },
+    'divider': {
+        width: '100%',
+        height: '1px',
+        background: '#646369',
+        opacity: '.4',
+        marginTop: '10px',
+        marginBottom: '20px'
+    },
+    'layout': {
+        height: '30px',
+        position: 'relative',
+        display: 'inline-block',
+        border: '1px solid #cdd',
+        borderTopLeftRadius: '9px',
+        borderTopRightRadius: '9px',
+        borderBottomLeftRadius: '5px',
+        borderBottomRightRadius: '5px',
+        overflow: 'hidden',
+        transition: 'all .3s ease-in-out',
+    },
+    'horizontalDivider': {
+        position: 'absolute',
+        bottom: '9px',
+        left: '0px',
+        right: '0px',
+        widht:' 100%',
+        height: '1px',
+        background: '#cdd',
+        overflow: 'hidden',
+        zIndex: '999 !important'
+    },
+    'gradient': {
+        position: 'absolute',
+        bottom: '18px',
+        left: '-1px',
+        right: '0px',
+        widht:' 100%',
+        height: '1px',
+        background: '#cdd',
+        overflow: 'hidden',
+        zIndex: 999,
+        transform: 'rotate(-25deg)'
+    },
+    'shades': {
+        position: 'absolute',
+        display: 'flex',
+        justifyContent: 'space-between',
+        top: '0px',
+        left: '-3px',
+        right: '-3px',
+        widht:' 110%',
+        height: '20px',
+        overflow: 'hidden',
+    },
+    'verticalDivider': {
+        position: 'relative',
+        width: '1px',
+        height: '19px',
+        background: '#cdd'
+    },
+    'view': {
+        display: 'flex',
+        alignItems: 'center',
+        margin: '4px 20px',
+        cursor: 'pointer',
+        '& span': {
+            marginLeft: '15px',
+            color: '#646369',
+            fontSize: '15px',
+            fontWeight: '400',
+            letterSpacing: '.5px',
+            transition: 'all .4s ease-in-out',
+        },
+        '&:hover': {
+            '& span': {
+                color: '#000'
+            },
+            '& div:first-child': {
+                background: '#4896FF',
+                '& div:first-child': {
+                    background: '#cdd'
+                }
+            }
+        }
+    },
+    'layoutOptions': {
+        display: 'flex',
     }
 };

@@ -1,4 +1,4 @@
-import React from 'react'
+/* import React from 'react'
 import { withStyles } from '@material-ui/styles'
 import styles from '../styles/PaletteFooterStyles'
 
@@ -11,4 +11,4 @@ function PaletteFooter({ palette, classes }) {
     )
 }
 
-export default withStyles(styles)(PaletteFooter)
+export default withStyles(styles)(PaletteFooter) */

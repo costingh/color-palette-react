@@ -1,20 +1,34 @@
 import React, { useState } from 'react'
 import ColorBox from './ColorBox'
 import Navbar from './Navbar'
-import PaletteFooter from './PaletteFooter'
 import { withStyles } from '@material-ui/styles'
 import styles from '../styles/PaletteStyles'
+import PaletteListFooter from './PaletteListFooter'
+import RoundedColorBox from './RoundedColorBox'
 
 function Palette({ palette, classes }) {
     const [level, setLevel] = useState(500)
     const [format, setFormat] = useState('hex')
-
-    const colorBoxes = palette.colors[level].map(color => {
+    const [layout, setLayout] = useState('shades')
+   /*  const colorBoxes = palette.colors[level].map(color => {
         return <ColorBox
             key={color.id}
             background={color[format]}
             name={color.name}
             moreUrl={`/palette/${palette.id}/${color.id}`}
+            showingFullPalette
+        />
+    }) */
+
+    const colorBoxesRounded = palette.colors[level].map((color, idx) => {
+        return <RoundedColorBox
+            key={color.id}
+            index={idx}
+            background={color[format]}
+            name={color.name}
+            layout={layout}
+            moreUrl={`/palette/${palette.id}/${color.id}`}
+            palette={palette}
             showingFullPalette
         />
     })
@@ -32,12 +46,22 @@ function Palette({ palette, classes }) {
                 level={level}
                 changeLevel={changeLevel}
                 handleChange={changeFormat}
+                palette={palette}
                 showingAllColors
+                setLayout={setLayout}
             />
-            <div className={classes.colors}>
+
+            {/* Box view */}
+            {/* <div className={classes.colors}>
                 {colorBoxes}
+            </div> */}
+
+            {/* Other view */}
+            <div className={classes.secondLayout}>
+                {colorBoxesRounded}
             </div>
-            <PaletteFooter palette={palette} />
+            
+            <PaletteListFooter/>
         </div>
     )
 }

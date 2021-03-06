@@ -51,12 +51,12 @@ function PaletteFormNav(props) {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap className={classes.text}>
-                        Persistent drawer
+                        Create A Palette
                     </Typography>
                     <CssBaseline />
                     <div className={classes.navBtns}>
                         <Link to='/' className={classes.link }>
-                            <Button variant='contained' className={classes.buttonSecondary}>Go Back</Button>  
+                            <Button variant='contained' className={classes.buttonSecondary}>Back</Button>  
                         </Link>
                         <Button variant='contained' className={classes.buttonPrimary} onClick={showForm}>Save</Button>
                         {formShowing && <PaletteMetaForm palettes={palettes} handleSubmit={handleSubmit} hideForm={hideForm} classes={classes} />}                      

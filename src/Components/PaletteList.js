@@ -1,8 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import MiniPalette from './MiniPalette'
 import { withStyles } from '@material-ui/styles'
 import styles from '../styles/PaletteListStyles'
+import PaletteListNavbar from './PaletteListNavbar'
+import PaletteListFooter from './PaletteListFooter'
 
 function PaletteList(props) {
     const { palettes, classes, deletePalette } = props
@@ -13,11 +14,12 @@ function PaletteList(props) {
 
     return (
         <div className={classes.root}>
+            <PaletteListNavbar/>
+            <div className={classes.heroText}>
+                <h1>Inspirational Palettes</h1>
+                <p>We jave prepared a few palettes for you, to get inspired, but you can create your own using the color picker!</p>
+            </div>
             <div className={classes.container}>
-                <nav className={classes.nav}>
-                    <h1>React Colors</h1>
-                    <Link to='/palette/new'>Create New Palette</Link>
-                </nav>
                 <div className={classes.palettes}>
                     {palettes.map(palette => {
                         return <MiniPalette 
@@ -29,7 +31,8 @@ function PaletteList(props) {
                         />
                     })}
                 </div>
-            </div>
+            </div> 
+            <PaletteListFooter/>
         </div>
     )
 }

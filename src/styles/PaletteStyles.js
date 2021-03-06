@@ -3,11 +3,20 @@ import sizes from '../helpers/sizes'
 const styles =  {
     Palette: {
         height: "100vh",
-        display: "flex",
-        flexDirection: "column"
+/*         display: "flex",
+        flexDirection: "column" */
+    },
+    'secondLayout': {
+        marginTop: '100px',
+        boxSizing: 'border-box',
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        flexWrap: 'wrap'
     },
     colors: {
-        height: "90%"
+        minHeight: "100%"
     },
     goBack: {
         width: "20%",
