@@ -1,9 +1,12 @@
+import sizes from '../helpers/sizes'
+
 export default {
     Navbar: {
         display: "flex",
         alignItems: "center",
         justifyContent: "flex-start",
-        height: "70px"
+        height: "70px",
+        borderBottom: '1px solid rgba(100, 99, 105, 0.2)'
     },
     logo: {
         marginLeft: '12px',
@@ -11,13 +14,32 @@ export default {
         height: '70px',
         '& img': {
             height: '50px',
-            marginTop: '10px'
-        }
+            marginTop: '10px',
+            [sizes.down('sm')]: {
+                marginTop: '0px'
+            },
+        },
+        [sizes.down('sm')]: {
+            height: '50px'
+        },
     },
     'right': {
         marginLeft: 'auto',
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
+    },
+    'bottomNav': {
+        [sizes.down('xs')]: {
+            position: 'absolute',
+            top: '70px',
+            left: '0px',
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            padding: '20px 30px',
+            borderBottom: '1px solid rgba(100, 99, 105, 0.2)'
+         },
     },
     'link': {
         display: 'flex',
@@ -38,7 +60,10 @@ export default {
         height: '35px',
         width: '1px',
         backgroundColor: 'rgba(100, 99, 105, 0.2)',
-        marginRight: '15px'
+        marginRight: '15px',
+        [sizes.down('xs')]: {
+            display: 'none'
+         },
     },
     'btn': {
         marginRight: '12px',
@@ -204,5 +229,8 @@ export default {
     },
     'layoutOptions': {
         display: 'flex',
+        [sizes.down('xs')]: {
+            flexDirection: 'column'
+         },
     }
 };

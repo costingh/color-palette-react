@@ -1,3 +1,5 @@
+import sizes from '../helpers/sizes'
+
 export default {
     'roundedColorBox': {
         height: '160px',
@@ -9,6 +11,11 @@ export default {
         margin: '20px',
         overflow: 'hidden',
         cursor: 'pointer',
+        [sizes.down('xs')]: {
+            margin: '20px 10px',
+            width: '100%',
+            maxWidth: '400px'
+        },
         '& .menuBar': {
             width: '100%',
             position: 'absolute',

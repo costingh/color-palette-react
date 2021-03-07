@@ -1,8 +1,7 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import styles from '../styles/RoundedColorBoxStyles'
 import { withStyles } from '@material-ui/styles'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
-import { Link } from 'react-router-dom'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import Popover from '@material-ui/core/Popover';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -94,97 +93,55 @@ function RoundedColorBox(props) {
     };
 
     getName()
-    return (
-        <div>     
-            <div className={classes.roundedColorBox}>   
-                {layout === 'shades' && <div className={classes.inner}>{showShades()}</div>}         
-                {layout === 'gradient' && 
-                    <div className={classes.inner}>
-                        <CopyToClipboard text={background} onCopy={() => changeCopyState(background)}>  
-                            <div className={classes.gradient}>
-                                {showGradient()}
-                            </div>
-                        </CopyToClipboard>   
-                    </div>} 
-                {layout === 'simple' && 
-                    <div className={classes.inner}> 
-                        <CopyToClipboard text={background} onCopy={() => changeCopyState(background)}>  
-                            <div className={classes.solid} style={{background}}> 
-                                <div>{background}</div>
-                            </div>
-                        </CopyToClipboard>   
-                    </div>}     
-                <div className='menuBar'>
-                    <div>{getName()}</div>
-                    <MoreHorizIcon onClick={handlePopoverClick}/>
-                    <Popover
-                        id={dotsId}
-                        open={dotsPopover}
-                        anchorEl={dotsAnchor}
-                        className={classes.dropdown}
-                        onClose={handlePopoverClickClose}
-                        anchorOrigin={{vertical: 'bottom',horizontal: 'center',}}                   
-                        transformOrigin={{vertical: 'top',horizontal: 'center',}}        
-                    >
-                        mere
-                    </Popover>
-                </div>
-                <Snackbar
-                    anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-                    open={copyOpen}
-                    onClose={closeSnackbar}
-                    autoHideDuration={3000}
-                    TransitionComponent={transition}
-                    key={transition ? transition.name : ''}
-                    ContentProps={{"aria-describedby": "message-id"}}
-                    message={<span id="message-id">You have copied {copiedColor} to your clipboard!</span>}
-                    action={[
-                        <IconButton onClick={closeSnackbar} key='close' aria-label='close'>
-                            <CloseIcon />
-                        </IconButton>
-                    ]}
-                />
-                
+    return ( 
+        <div className={classes.roundedColorBox}>   
+            {layout === 'shades' && <div className={classes.inner}>{showShades()}</div>}         
+            {layout === 'gradient' && 
+                <div className={classes.inner}>
+                    <CopyToClipboard text={background} onCopy={() => changeCopyState(background)}>  
+                        <div className={classes.gradient}>
+                            {showGradient()}
+                        </div>
+                    </CopyToClipboard>   
+                </div>} 
+            {layout === 'simple' && 
+                <div className={classes.inner}> 
+                    <CopyToClipboard text={background} onCopy={() => changeCopyState(background)}>  
+                        <div className={classes.solid} style={{background}}> 
+                            <div>{background}</div>
+                        </div>
+                    </CopyToClipboard>   
+                </div>}     
+            <div className='menuBar'>
+                <div>{getName()}</div>
+                <MoreHorizIcon onClick={handlePopoverClick}/>
+                <Popover
+                    id={dotsId}
+                    open={dotsPopover}
+                    anchorEl={dotsAnchor}
+                    className={classes.dropdown}
+                    onClose={handlePopoverClickClose}
+                    anchorOrigin={{vertical: 'bottom',horizontal: 'center',}}                   
+                    transformOrigin={{vertical: 'top',horizontal: 'center',}}        
+                >
+                    mere
+                </Popover>
             </div>
-  
-
-        {/* <CopyToClipboard text={background} onCopy={changeCopyState}>
-            <div className={classes.roundedColorBox}>
-                {layout === 'shades' && <div className={classes.inner}>{showShades()}</div>}         
-                {layout === 'gradient' && <div className={classes.inner}><div className={classes.gradient}>{showGradient()}</div></div>}                             
-                {layout === 'simple' && <div className={classes.inner}> <div className={classes.solid} style={{background}}> <div>{background}</div></div></div>}                                                             
-                <div className='menuBar'>
-                    <div>{getName()}</div>
-                    <MoreHorizIcon onClick={handlePopoverClick}/>
-                    <Popover
-                        id={dotsId}
-                        open={dotsPopover}
-                        anchorEl={dotsAnchor}
-                        className={classes.dropdown}
-                        onClose={handlePopoverClickClose}
-                        anchorOrigin={{vertical: 'bottom',horizontal: 'center',}}                   
-                        transformOrigin={{vertical: 'top',horizontal: 'center',}}        
-                    >
-                        mere
-                    </Popover>
-                </div>
-                <Snackbar
-                    anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-                    open={copyOpen && layout === 'simple'}
-                    onClose={closeSnackbar}
-                    autoHideDuration={3000}
-                    TransitionComponent={transition}
-                    key={transition ? transition.name : ''}
-                    ContentProps={{"aria-describedby": "message-id"}}
-                    message={<span id="message-id">You have copied {background} to your clipboard!</span>}
-                    action={[
-                        <IconButton onClick={closeSnackbar} key='close' aria-label='close'>
-                            <CloseIcon />
-                        </IconButton>
-                    ]}
-                />
-            </div>
-        </CopyToClipboard> */}
+            <Snackbar
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                open={copyOpen}
+                onClose={closeSnackbar}
+                autoHideDuration={3000}
+                TransitionComponent={transition}
+                key={transition ? transition.name : ''}
+                ContentProps={{"aria-describedby": "message-id"}}
+                message={<span id="message-id">You have copied {copiedColor} to your clipboard!</span>}
+                action={[
+                    <IconButton onClick={closeSnackbar} key='close' aria-label='close'>
+                        <CloseIcon />
+                    </IconButton>
+                ]}
+            />
         </div>
     )
 }

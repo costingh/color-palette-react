@@ -1,3 +1,5 @@
+import sizes from '../helpers/sizes'
+
 export default {
     nav: {
         display: 'flex',
@@ -7,7 +9,10 @@ export default {
         alignItems: 'center'
     },
     'logo': {
-        height: '70px'
+        height: '70px',
+        [sizes.down('xs')]: {
+            height: '50px'
+        },
     },
     'link': {
         padding: '10px 30px',
@@ -22,6 +27,10 @@ export default {
         '&:hover': {
             background: 'transparent',
             color: '#4896FF'
-        }
+        },
+        [sizes.down('xs')]: {
+            padding: '8px 15px',
+            /* borderRadius: '8px', */
+        },
     }
 }

@@ -3,7 +3,7 @@ import sizes from '../helpers/sizes'
 export default {
     footerClean: {
         borderTop: '1px solid rgba(75,76,77,0.5)',
-        padding: '50px 0',
+        padding: '0',
         backgroundColor: '#fff',
         color: '#4b4c4d',
         width: '100%',
@@ -12,10 +12,14 @@ export default {
         justifyContent: 'space-around',
         '& h3': {
             marginBottom: '27px'
+        },
+        [sizes.down('md')]: {
+            flexDirection: 'column'
         }
     },
     'item': {
         textAlign: 'center',
+        margin: '50px 0',
         [sizes.down('lg')]: {
             width: '33.33%'
         },
@@ -24,6 +28,7 @@ export default {
         }
     },
     'social': {
+        margin: '50px 0',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
@@ -80,7 +85,7 @@ export default {
         marginBottom:'0',
         fontSize:'13px',
         opacity:'0.6',
-    } 
+    }
 }
  
   

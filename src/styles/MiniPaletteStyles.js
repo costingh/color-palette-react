@@ -1,6 +1,9 @@
 const styles = {
     root: {
         backgroundColor: 'white',
+        width: '290px',
+        height: '180px',
+        margin: '20px',
         borderRadius: '15px',
         padding: '0',
         position: 'relative',

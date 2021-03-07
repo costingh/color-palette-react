@@ -10,13 +10,11 @@ import Slider from 'rc-slider';
 import logo from '../images/logo.png';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Popover from '@material-ui/core/Popover';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import styles from '../styles/NavbarStyles';
 import 'rc-slider/assets/index.css';
 
 function Navbar(props) {
-    const { level, changeLevel, handleChange, showingAllColors, classes, palette, setLayout, format, setFormat } = props;
+    const { classes, setLayout, format, setFormat } = props;
 
     /* Popover for format change (Hex, RGB, RGBA) */
     const [formatOpen, setFormatOpen] = useState(false)
@@ -62,41 +60,43 @@ function Navbar(props) {
                 <img src={logo} alt="HEXA"/>
             </Link>
             <div className={classes.right}>
-                <Link to='/palette/new' className={classes.link}>Create</Link>
-                {/* Popover for Format change starts */}
-                <p className={classes.link} onClick={handleFormatChange} >Format<ExpandMoreIcon style={{marginLeft: '6px'}}/></p>
-                <Popover
-                    id={formatId}
-                    open={formatPopover}
-                    className={classes.dropdown}
-                    anchorEl={formatAnchor}
-                    onClose={handleFormatChangeClose}
-                    anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                    }}
-                    transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                    }}
-                >
-                    <p onClick={() => handleFormatValueChange('hex')}>
-                        HEX (Default)
-                        {format === 'hex' && <div className={classes.currentFormat}></div>}
-                    </p>
-                    <p onClick={() => handleFormatValueChange('rgb')}>
-                        RGB 
-                        {format === 'rgb' && <div className={classes.currentFormat}></div>}
-                    </p>
-                    <p onClick={() => handleFormatValueChange('rgba')}>
-                        RGBA 
-                        {format === 'rgba' && <div className={classes.currentFormat}></div>}
-                    </p>
-                </Popover>
-                {/* Popover for Format change ends */}
-                
-                <div className={classes.dividerVert}></div>
-                <Link to='/' className={classes.link}>Eplore</Link>
+                <div className={classes.bottomNav}>
+                    <Link to='/palette/new' className={classes.link}>Create</Link>
+                    {/* Popover for Format change starts */}
+                    <p className={classes.link} onClick={handleFormatChange} >Format<ExpandMoreIcon style={{marginLeft: '6px'}}/></p>
+                    <Popover
+                        id={formatId}
+                        open={formatPopover}
+                        className={classes.dropdown}
+                        anchorEl={formatAnchor}
+                        onClose={handleFormatChangeClose}
+                        anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'center',
+                        }}
+                        transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'center',
+                        }}
+                    >
+                        <p onClick={() => handleFormatValueChange('hex')}>
+                            HEX (Default)
+                            {format === 'hex' && <div className={classes.currentFormat}></div>}
+                        </p>
+                        <p onClick={() => handleFormatValueChange('rgb')}>
+                            RGB 
+                            {format === 'rgb' && <div className={classes.currentFormat}></div>}
+                        </p>
+                        <p onClick={() => handleFormatValueChange('rgba')}>
+                            RGBA 
+                            {format === 'rgba' && <div className={classes.currentFormat}></div>}
+                        </p>
+                    </Popover>
+                    {/* Popover for Format change ends */}
+                    
+                    <div className={classes.dividerVert}></div>
+                    <Link to='/' className={classes.link}>Eplore</Link>
+                </div>
                     
                 {/* Popover for Layout change starts */}
                 <Link className={classes.btn} onClick={handleLayoutChange}>Change View</Link>

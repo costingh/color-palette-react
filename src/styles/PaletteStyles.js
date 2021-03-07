@@ -8,6 +8,7 @@ const styles =  {
     },
     'secondLayout': {
         marginTop: '100px',
+        marginBottom: '100px',
         boxSizing: 'border-box',
         width: '100%',
         display: 'flex',
