@@ -26,10 +26,9 @@ function Palette({ palette, classes }) {
             index={idx}
             background={color[format]}
             name={color.name}
+            format={format}
             layout={layout}
-            moreUrl={`/palette/${palette.id}/${color.id}`}
             palette={palette}
-            showingFullPalette
         />
     })
 
@@ -49,6 +48,8 @@ function Palette({ palette, classes }) {
                 palette={palette}
                 showingAllColors
                 setLayout={setLayout}
+                format={format}
+                setFormat={setFormat}
             />
 
             {/* Box view */}

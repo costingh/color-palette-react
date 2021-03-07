@@ -82,6 +82,7 @@ export default {
         '& p': {
             padding: '5px 20px',
             borderRadius: '8px',
+            position: 'relative',
             color: '#646369',
             cursor: 'pointer',
             transition: 'all .2s ease-in-out',
@@ -142,7 +143,7 @@ export default {
         bottom: '18px',
         left: '-1px',
         right: '0px',
-        widht:' 100%',
+        width:' 100%',
         height: '1px',
         background: '#cdd',
         overflow: 'hidden',
@@ -165,6 +166,16 @@ export default {
         width: '1px',
         height: '19px',
         background: '#cdd'
+    },
+    'currentFormat': {
+        position: 'absolute',
+        left: '0px',
+        top: '0px',
+        width: '8px',
+        height: '8px',
+        borderRadius: '50%',
+        background: '#4896FF',
+
     },
     'view': {
         display: 'flex',

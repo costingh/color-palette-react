@@ -16,8 +16,7 @@ import styles from '../styles/NavbarStyles';
 import 'rc-slider/assets/index.css';
 
 function Navbar(props) {
-    const { level, changeLevel, handleChange, showingAllColors, classes, palette, setLayout } = props;
-    const [format, setFormat] = useState('hex')
+    const { level, changeLevel, handleChange, showingAllColors, classes, palette, setLayout, format, setFormat } = props;
 
     /* Popover for format change (Hex, RGB, RGBA) */
     const [formatOpen, setFormatOpen] = useState(false)
@@ -81,9 +80,18 @@ function Navbar(props) {
                     horizontal: 'center',
                     }}
                 >
-                    <p onClick={() => handleFormatValueChange('hex')}>HEX (Default)</p>
-                    <p onClick={() => handleFormatValueChange('rgb')}>RGB </p>
-                    <p onClick={() => handleFormatValueChange('rgba')}>RGBA </p>
+                    <p onClick={() => handleFormatValueChange('hex')}>
+                        HEX (Default)
+                        {format === 'hex' && <div className={classes.currentFormat}></div>}
+                    </p>
+                    <p onClick={() => handleFormatValueChange('rgb')}>
+                        RGB 
+                        {format === 'rgb' && <div className={classes.currentFormat}></div>}
+                    </p>
+                    <p onClick={() => handleFormatValueChange('rgba')}>
+                        RGBA 
+                        {format === 'rgba' && <div className={classes.currentFormat}></div>}
+                    </p>
                 </Popover>
                 {/* Popover for Format change ends */}
                 
