@@ -1,17 +1,13 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/styles'
-import { MenuItem } from '@material-ui/core'
 import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close';
 import Snackbar from '@material-ui/core/Snackbar';
-import Select from '@material-ui/core/Select';
-import Slider from 'rc-slider';
 import logo from '../images/logo.png';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Popover from '@material-ui/core/Popover';
 import styles from '../styles/NavbarStyles';
-import 'rc-slider/assets/index.css';
 
 function Navbar(props) {
     const { classes, setLayout, format, setFormat } = props;

@@ -69,7 +69,7 @@ function RoundedColorBox(props) {
 
     const getName = () => {
         const spaceIndex = name.indexOf(' ')
-        const newName = name.slice(0, spaceIndex-1);
+        const newName = name.slice(0, spaceIndex);
         return newName
     }
 

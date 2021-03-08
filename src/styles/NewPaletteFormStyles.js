@@ -1,5 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 import {DRAWER_WIDTH} from '../constants/Constants'
+import sizes from '../helpers/sizes'
 
 const drawerWidth = DRAWER_WIDTH;
 
@@ -10,25 +11,29 @@ const useStyles = makeStyles((theme) => ({
     drawer: {
         width: drawerWidth,
         flexShrink: 0,
-        backgroundColor: props => props.palette.primary.main
+        backgroundColor: props => props.palette.primary.main,
     },
     drawerPaper: {
         width: drawerWidth,    
         backgroundColor: props => props.palette.primary.main,
+        [sizes.down('sm')]: {
+            width: '100%',
+        },
     },
     drawerHeader: {
         backgroundColor: props => props.palette.primary.main,
         display: 'flex',
         alignItems: 'center',
-        padding: theme.spacing(2, 1),
+        padding: '5px',
         // necessary for content to be below app bar
         ...theme.mixins.toolbar,
         justifyContent: 'flex-end',
     },
     content: {
         flexGrow: 1,
-        height: 'calc(100vh - 64px)',
+        minHeight: '100vh',
         padding: 0,
+        backgroundColor: props => props.palette.primary.main,
         transition: theme.transitions.create('margin', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
@@ -41,6 +46,9 @@ const useStyles = makeStyles((theme) => ({
             duration: theme.transitions.duration.enteringScreen,
         }),
         marginLeft: 0,
+        [sizes.down('sm')]: {
+            display: 'none  '
+        },
     },
     header: {
         color: props => props.palette.text.main,
@@ -50,7 +58,11 @@ const useStyles = makeStyles((theme) => ({
         letterSpacing: '0.7px',
         fontWeight: '800',
         marginTop: '40px',
-        marginBottom: '30px'
+        marginBottom: '30px',
+        [sizes.down('sm')]: {
+            marginTop: '25px',
+            marginBottom: '20px',
+        },
     },
     buttonsContainer: {
         width: '70%',
@@ -59,7 +71,11 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: '30px',
-        marginBottom: '50px'
+        marginBottom: '50px',
+        [sizes.down('sm')]: {
+            marginTop: '25px',
+            marginBottom: '40px',
+        },
     },
     button: {
         width: '85px',
@@ -132,7 +148,10 @@ const useStyles = makeStyles((theme) => ({
             outline: 'none !important',
             boxShadow: 'none !important',
             color: props => props.palette.icons.main + ' !important',
-        }
+        },
+        [sizes.down('sm')]: {
+            width: '300px !important',
+        },
     },
     colorValidator: {
         width: '70%',
@@ -154,7 +173,8 @@ const useStyles = makeStyles((theme) => ({
     },
     buttonSecondary: {
         background:props => props.palette.secondary.main
-    }
+    },
+
 }));
 
 export default useStyles;

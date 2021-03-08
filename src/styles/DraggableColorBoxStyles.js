@@ -15,15 +15,19 @@ const styles = {
         },
         [sizes.down('lg')]: {
             width: '25%',
-            height: '20%'
+            height: 'calc((100vh - 64px) / 4 )'
         },
         [sizes.down('md')]: {
-            width: '50%',
-            height: '10%'
+            width: '33.33%',
+            height: 'calc((100vh - 64px) / 6.66 )'
         },
         [sizes.down('sm')]: {
+            width: '50%',
+            height: 'calc((100vh - 64px) / 5 )'
+        },
+        [sizes.down('xs')]: {
             width: '100%',
-            height: '5%'
+            height: 'calc((100vh - 64px) / 5 )'
         }
     },
     boxContent: {

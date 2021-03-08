@@ -29,6 +29,7 @@ export default {
         alignItems: 'center',
     },
     'bottomNav': {
+        display: 'flex',
         [sizes.down('xs')]: {
             position: 'absolute',
             top: '70px',
@@ -79,27 +80,6 @@ export default {
         '&:hover': {
             backgroundColor: 'transparent',
             color: '#4896FF'
-        }
-    },
-    slider: {
-        width: "340px",
-        margin: "0 10px",
-        display: "inline-block",
-        "& .rc-slider-track": {
-            backgroundColor: "transparent"
-        },
-        "& .rc-slider-rail": {
-            height: "8px"
-        },
-        "& .rc-slider-handle, .rc-slider-handle:active, .rc-slider-handle:focus,.rc-slider-handle:hover": {
-            backgroundColor: "green",
-            outline: "none",
-            border: "2px solid green",
-            boxShadow: "none",
-            width: "13px",
-            height: "13px",
-            marginLeft: "-7px",
-            marginTop: "-3px"
         }
     },
     'dropdown': {

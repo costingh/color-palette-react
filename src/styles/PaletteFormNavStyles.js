@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
         transition: theme.transitions.create(['margin', 'width'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
-        }),
+        })
     },
     appBarShift: {
         width: `calc(100% - ${drawerWidth}px)`,
@@ -19,9 +19,13 @@ const useStyles = makeStyles((theme) => ({
             easing: theme.transitions.easing.easeOut,
             duration: theme.transitions.duration.enteringScreen,
         }),
+        [sizes.down('sm')]: {
+            width: '100%',
+        },
     },
     menuButton: {
         marginRight: theme.spacing(2),
+        color: props => props.palette.text.main,
     },
     hide: {
         display: 'none',
@@ -30,18 +34,19 @@ const useStyles = makeStyles((theme) => ({
         background: props => props.palette.primary.main,
         color: props => props.palette.text.main,
         margin: '0 15px',
+        padding: '12px 25px',
+        borderRadius: '20px',
         height: '40px'
     },
     buttonSecondary: {
         background:props => props.palette.secondary.main,
         color: props => props.palette.text.main,
         margin: '0 15px',
+        padding: '12px 25px',
+        borderRadius: '20px',
         height: '40px'
     }, 
-    'text': {
-        color: props => props.palette.text.main
-    },
-    'navBtns': {
+    navBtns: {
         marginLeft: 'auto !important',
         display: 'flex',
         marginRight: '15px',
