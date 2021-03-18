@@ -12,6 +12,12 @@ This is a web application that allows a user to browse through a lot of color pa
 
 ![Demo 1](https://github.com/costingh/color-palette-react/blob/master/demo3.png?raw=true)
 
+## Installing
+
+* Run this command: git clone https://github.com/costingh/color-palette-react.git
+* Run npm install
+* Run npm start
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
