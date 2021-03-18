@@ -1,3 +1,17 @@
+# Color-Palette-React
+
+## Description
+
+This is a web application that allows a user to browse through a lot of color palettes, to copy a color or a shade, to change the format, the grid view, to pick a color using a color picker, or to create its own palette and save it to local storage.
+
+## Demo
+
+![Demo 1](https://github.com/costingh/color-palette-react/blob/master/demo1.png?raw=true)
+
+![Demo 1](https://github.com/costingh/color-palette-react/blob/master/demo2.png?raw=true)
+
+![Demo 1](https://github.com/costingh/color-palette-react/blob/master/demo3.png?raw=true)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
